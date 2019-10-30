@@ -41,7 +41,7 @@ function initializeCode() {
       // table TD with textnode
       var cell = document.createElement("div");
       cell.setAttribute("class", "col s2");
-      var cellTxtNode = document.createTextNode("e");
+      var cellTxtNode = document.createTextNode(".");
       // Attribute for each cell
       cell.setAttribute("id", i + "" + j);
       // Event listener for clicks
@@ -58,12 +58,12 @@ function initializeCode() {
 function move() {
   // ADDING a move to TABLE and Array
   //
-  if (timer === 1) {
+  if (timer === 1 && gameOver === 0) {
     clearInterval(intervalId);
     timer = 0;
   }
 
-  if (gameOver === 0 && turn === 1 && this.innerHTML === "e") {
+  if (gameOver === 0 && turn === 1 && this.innerHTML === ".") {
     this.innerHTML = "x";
     field[parseInt(this.id[0], 10)][parseInt(this.id[1], 10)] = "x";
     //const att = document.createAttribute("class");
@@ -72,12 +72,12 @@ function move() {
     //att.value = "cellgreen col s2";
     //console.log(att);
     //this.setAttributeNode(att);
-    this.setAttribute("class", "w3-green col s2");
+    this.setAttribute("class", "light-primary-color col s2");
     document.getElementById("turn").innerHTML = "Turn of Player 2 (o)";
     turn = 2;
     checkWinner();
     progress();
-  } else if (gameOver === 0 && turn === 2 && this.innerHTML === "e") {
+  } else if (gameOver === 0 && turn === 2 && this.innerHTML === ".") {
     this.innerHTML = "o";
     field[parseInt(this.id[0], 10)][parseInt(this.id[1], 10)] = "o";
     const att = document.createAttribute("class");
