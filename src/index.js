@@ -1,5 +1,3 @@
-import "./styles.css";
-
 var turn = 1;
 var gameOver = 0;
 var timer = 0;
@@ -29,18 +27,21 @@ if (document.readyState !== "loading") {
 // BASED ON LECTURE EXAMPLE
 function initializeCode() {
   console.log("Initializing");
-  document.getElementById("info").innerHTML = "<h2>P1:x P2:o</h2>";
-  document.getElementById("turn").innerHTML = "<h2>Turn of Player 1 (x)</h2>";
+  document.getElementById("info").innerHTML = "P1:x P2:o";
+  document.getElementById("turn").innerHTML = "Turn of Player 1 (x)";
   const boardi = document.getElementById("board");
 
   // Create table (logic influenced by internet sources)
+
   for (var i = 0; i <= 4; i++) {
     // table row TR
-    var row = document.createElement("TR");
+    var row = document.createElement("div");
+    row.setAttribute("class", "row");
     for (var j = 0; j <= 4; j++) {
       // table TD with textnode
-      var cell = document.createElement("TD");
-      var cellTxtNode = document.createTextNode("");
+      var cell = document.createElement("div");
+      cell.setAttribute("class", "col s2");
+      var cellTxtNode = document.createTextNode("e");
       // Attribute for each cell
       cell.setAttribute("id", i + "" + j);
       // Event listener for clicks
@@ -61,23 +62,30 @@ function move() {
     clearInterval(intervalId);
     timer = 0;
   }
-  if (gameOver === 0 && turn === 1 && this.innerHTML === "") {
+
+  if (gameOver === 0 && turn === 1 && this.innerHTML === "e") {
     this.innerHTML = "x";
     field[parseInt(this.id[0], 10)][parseInt(this.id[1], 10)] = "x";
-    const att = document.createAttribute("class");
-    att.value = "cellgreen";
-    this.setAttributeNode(att);
-    document.getElementById("turn").innerHTML = "<h2>Turn of Player 2 (o)</h2>";
+    //const att = document.createAttribute("class");
+    //const att2 = this.getAttribute("class");
+    //console.log(att2);
+    //att.value = "cellgreen col s2";
+    //console.log(att);
+    //this.setAttributeNode(att);
+    this.setAttribute("class", "w3-green col s2");
+    document.getElementById("turn").innerHTML = "Turn of Player 2 (o)";
     turn = 2;
     checkWinner();
     progress();
-  } else if (gameOver === 0 && turn === 2 && this.innerHTML === "") {
+  } else if (gameOver === 0 && turn === 2 && this.innerHTML === "e") {
     this.innerHTML = "o";
     field[parseInt(this.id[0], 10)][parseInt(this.id[1], 10)] = "o";
     const att = document.createAttribute("class");
-    att.value = "cellred";
-    this.setAttributeNode(att);
-    document.getElementById("turn").innerHTML = "<h2>Turn of Player 1 (x)</h2>";
+    //console.log("att");
+    //att.value = "cellred";
+    //this.setAttributeNode(att);
+    this.setAttribute("class", "accent-color col s2");
+    document.getElementById("turn").innerHTML = "Turn of Player 1 (x)";
     turn = 1;
     checkWinner();
     progress();
@@ -85,7 +93,8 @@ function move() {
 }
 
 function progress() {
-  var elem = document.getElementById("myBar");
+  //var elem = document.getElementById("myBar");
+  var elem2 = document.getElementById("myBar2");
   var width = 1;
   clearInterval(intervalId);
   intervalId = setInterval(frame, 100);
@@ -95,20 +104,19 @@ function progress() {
       clearInterval(intervalId);
       if (gameOver === 0 && turn === 1) {
         turn = 2;
-        document.getElementById("turn").innerHTML =
-          "<h2>Turn of Player 2 (o)</h2>";
+        document.getElementById("turn").innerHTML = "Turn of Player 2 (o)";
 
         progress();
       } else if (gameOver === 0 && turn === 2) {
         turn = 1;
-        document.getElementById("turn").innerHTML =
-          "<h2>Turn of Player 1 (x)</h2>";
+        document.getElementById("turn").innerHTML = "Turn of Player 1 (x)";
 
         progress();
       }
     } else {
       width++;
-      elem.style.width = width + "%";
+      //elem.style.width = width + "%";
+      elem2.style.width = width + "%";
     }
   }
 }
@@ -127,15 +135,13 @@ var checkWinner = function() {
         p2++;
       }
       if (p1 === 5) {
-        document.getElementById("turn").innerHTML =
-          "<h2>Player 1 (x) wins!</h2>";
+        document.getElementById("turn").innerHTML = "Player 1 (x) wins!";
         alert("Player 1 won!");
         gameOver = 1;
         clearInterval(intervalId);
         //return "player 1 won";
       } else if (p2 === 5) {
-        document.getElementById("turn").innerHTML =
-          "<h2>Player 2 (o) wins!</h2>";
+        document.getElementById("turn").innerHTML = "Player 2 (o) wins!";
         alert("Player 2 won!");
         gameOver = 1;
         clearInterval(intervalId);
@@ -153,15 +159,13 @@ var checkWinner = function() {
         p2++;
       }
       if (p1 === 5) {
-        document.getElementById("turn").innerHTML =
-          "<h2>Player 1 (x) wins!</h2>";
+        document.getElementById("turn").innerHTML = "Player 1 (x) wins!";
         alert("Player 1 won!");
         gameOver = 1;
         clearInterval(intervalId);
         //return "player 1 won";
       } else if (p2 === 5) {
-        document.getElementById("turn").innerHTML =
-          "<h2>Player 2 (o) wins!</h2>";
+        document.getElementById("turn").innerHTML = "Player 2 (o) wins!";
         alert("Player 2 won!");
         gameOver = 1;
         clearInterval(intervalId);
@@ -178,13 +182,13 @@ var checkWinner = function() {
       p2++;
     }
     if (p1 === 5) {
-      document.getElementById("turn").innerHTML = "<h2>Player 1 (x) wins!</h2>";
+      document.getElementById("turn").innerHTML = "Player 1 (x) wins!";
       alert("Player 1 won!");
       gameOver = 1;
       clearInterval(intervalId);
       //return "player 1 won";
     } else if (p2 === 5) {
-      document.getElementById("turn").innerHTML = "<h2>Player 2 (o) wins!</h2>";
+      document.getElementById("turn").innerHTML = "Player 2 (o) wins!";
       alert("Player 2 won!");
       gameOver = 1;
       clearInterval(intervalId);
@@ -200,14 +204,14 @@ var checkWinner = function() {
       p2++;
     }
     if (p1 === 5) {
-      document.getElementById("turn").innerHTML = "<h2>Player 1 (x) wins!</h2>";
+      document.getElementById("turn").innerHTML = "Player 1 (x) wins!";
       alert("Player 1 won!");
       gameOver = 1;
       clearInterval(intervalId);
 
       //return "player 1 won";
     } else if (p2 === 5) {
-      document.getElementById("turn").innerHTML = "<h2>Player 2 (o) wins!</h2>";
+      document.getElementById("turn").innerHTML = "Player 2 (o) wins!";
       alert("Player 2 won!");
       gameOver = 1;
       clearInterval(intervalId);
